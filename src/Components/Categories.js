@@ -10,21 +10,37 @@ export class Categories extends Component {
                     name: 'Всі'
                 },
                 {
-                    key: 'all',
-                    name: 'Всі'
+                    key: 'fruit',
+                    name: 'Фрукти'
                 },
                 {
-                    key: 'all',
-                    name: 'Всі'
+                    key: 'vegetable',
+                    name: 'Овочі'
                 },
                 {
-                    key: 'all',
-                    name: 'Всі'
+                    key: 'meat',
+                    name: 'М`ясо та м`ясопродукти'
                 },
                 {
-                    key: 'all',
-                    name: 'Всі'
+                    key: 'fish',
+                    name: 'Риба та морепродукти'
                 },
+                {
+                    key: 'milk',
+                    name: 'Молочні продукти'
+                },
+                {
+                    key: 'crops',
+                    name: 'Зернові продукти'
+                },
+                {
+                    key: 'drinks',
+                    name: 'Напої'
+                },
+                {
+                    key: 'sweets',
+                    name: 'Десерти та солодощі'
+                }
             ]
         }
     }
