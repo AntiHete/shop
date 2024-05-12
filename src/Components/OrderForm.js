@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Импортируем библиотеку Axios
 
 export default function OrderForm({ onSubmit }) {
     const [formData, setFormData] = useState({
@@ -17,11 +18,23 @@ export default function OrderForm({ onSubmit }) {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Викликаємо обробник події onSubmit, передаючи formData
-        onSubmit(formData);
-    };
+        console.log('Form data submitted:', formData); // Выводим данные формы в консоль перед отправкой
+        if (!onSubmit) {
+            console.error('Error: onSubmit function is not provided.'); // Проверяем, что функция onSubmit предоставлена
+            return;
+        }
+        try {
+            // Отправляем данные формы на сервер
+            const response = await axios.post('http://localhost:5000/submit-form', formData);
+            console.log(response.data); // Выводим ответ сервера в консоль
+            // Вызываем onSubmit с полученным ответом
+            onSubmit(response.data);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };    
 
     return (
         <form onSubmit={handleSubmit}>
