@@ -1,13 +1,14 @@
+import React from "react";
 import Header from "./Components/Header"; // Імпорт компонента заголовку
 import Footer from "./Components/Footer"; // Імпорт компонента підвалу
 import Items from "./Components/Items"; // Імпорт компонента елементів
 import Categories from "./Components/Categories"; // Імпорт компонента категорій
 import ShowFullItem from "./Components/ShowFullItem"; // Імпорт компонента повного елемента
 
-class App extends React.Component { // Клас App, який розширює React.Component
-  constructor(props) { // Конструктор класу
+class App extends React.Component { 
+  constructor(props) {
     super(props)
-    this.state = { // Початковий стан компонента
+    this.state = {
       orders: [], // Замовлення
       currentItems: [], // Поточні елементи
       items: [
@@ -372,70 +373,76 @@ class App extends React.Component { // Клас App, який розширює R
           price: '52.30'
         },
       ], // Елементи
-      showFullItem: false, // Показувати повний елемент
+      showFullItem: false, // Показати повний елемент
       fullItem: {} // Повний елемент
     }
-    this.state.currentItems = this.state.items // Встановлення початкових поточних елементів
-    this.addToOrder = this.addToOrder.bind(this) // Прив'язка контексту до методу addToOrder
-    this.deleteOrder = this.deleteOrder.bind(this) // Прив'язка контексту до методу deleteOrder
-    this.chooseCategory = this.chooseCategory.bind(this) // Прив'язка контексту до методу chooseCategory
-    this.onShowItem = this.onShowItem.bind(this) // Прив'язка контексту до методу onShowItem
-    this.searchItems = this.searchItems.bind(this) // Прив'язка контексту до методу searchItems
+    this.state.currentItems = this.state.items // Встановлення поточних елементів
+    this.addToOrder = this.addToOrder.bind(this) // Прив'язка контексту для функції додавання до замовлення
+    this.deleteOrder = this.deleteOrder.bind(this) // Прив'язка контексту для функції видалення замовлення
+    this.chooseCategory = this.chooseCategory.bind(this) // Прив'язка контексту для функції вибору категорії
+    this.onShowItem = this.onShowItem.bind(this) // Прив'язка контексту для функції відображення елементу
+    this.searchItems = this.searchItems.bind(this) // Прив'язка контексту для функції пошуку елементів
   }
   
-  componentDidMount() { // Після монтування компонента
-    this.setState({ currentItems: this.state.items }); // Встановлення початкових поточних елементів
+  componentDidMount() {
+    this.setState({ currentItems: this.state.items }); // Встановлення початкових поточних елементів після завантаження компонента
   }
 
-  searchItems(searchTerm) { // Пошук елементів за терміном пошуку
+  // Функція пошуку елементів за введеним терміном
+  searchItems(searchTerm) {
     const filteredItems = this.state.items.filter(
       (item) =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase()) || // Пошук за назвою
-        item.category.toLowerCase().includes(searchTerm.toLowerCase()) // Пошук за категорією
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    this.setState({ currentItems: filteredItems }); // Встановлення поточних елементів після фільтрації
+    this.setState({ currentItems: filteredItems });
   }
 
-  render() { // Рендер компонента
+  render() {
     return (
       <div className="wrapper">
-        <Header orders={this.state.orders} onDelete={this.deleteOrder} searchItems={this.searchItems} /> {/* Відображення заголовка замовлень та пошуку */}
-        <Categories chooseCategory={this.chooseCategory} /> {/* Відображення категорій */}
-        <Items onShowItem={this.onShowItem} items={this.state.currentItems} onAdd={this.addToOrder} /> {/* Відображення елементів */}
-        {this.state.showFullItem && <ShowFullItem onAdd={this.addToOrder} onShowItem={this.onShowItem} item={this.state.fullItem} />} {/* Умовне відображення повного елемента */}
-        <Footer /> {/* Відображення підвалу */}
+        <Header orders={this.state.orders} onDelete={this.deleteOrder} searchItems={this.searchItems} /> {/* Рендер компонента заголовку з передачею параметрів */}
+        <Categories chooseCategory={this.chooseCategory} /> {/* Рендер компонента категорій з передачею параметрів */}
+        <Items onShowItem={this.onShowItem} items={this.state.currentItems} onAdd={this.addToOrder} /> {/* Рендер компонента елементів з передачею параметрів */}
+
+        {this.state.showFullItem && <ShowFullItem onAdd={this.addToOrder} onShowItem={this.onShowItem} item={this.state.fullItem} />} {/* Умовний рендер компонента повного елемента */}
+        <Footer /> {/* Рендер компонента підвалу */}
       </div>
     );
   }
 
-  onShowItem(item) { // Показати повний елемент
-    this.setState({fullItem: item}) // Встановлення поточного повного елемента
-    this.setState({ showFullItem: !this.state.showFullItem}) // Зміна стану відображення повного елемента
+  // Функція відображення повного елемента
+  onShowItem(item) {
+    this.setState({fullItem: item})
+    this.setState({ showFullItem: !this.state.showFullItem})
   }
 
-  chooseCategory(category) { // Вибір категорії
-    if(category === 'all') { // Якщо вибрана категорія - "усі"
-      this.setState({ currentItems: this.state.items}) // Встановлення усіх елементів в поточні
+  // Функція вибору категорії
+  chooseCategory(category) {
+    if(category === 'all') {
+      this.setState({ currentItems: this.state.items})
       return
     }
 
-    this.setState({ // Встановлення елементів в поточні за вибраною категорією
+    this.setState({
       currentItems: this.state.items.filter(el => el.category === category)
     })
   }
 
-  deleteOrder(id) { // Видалення замовлення
-    this.setState({orders: this.state.orders.filter(el => el.id !== id)}) // Видалення елемента зі змовлення за його ідентифікатором
+  // Функція видалення замовлення
+  deleteOrder(id) {
+    this.setState({orders: this.state.orders.filter(el => el.id !== id)})
   }
 
-  addToOrder(item) { // Додавання до замовлення
-    let isInArray = false // Флаг, який показує, чи вже є елемент у замовленні
-    this.state.orders.forEach(el => { // Перевірка кожного елемента у замовленні
+  // Функція додавання до замовлення
+  addToOrder(item) {
+    let isInArray = false
+    this.state.orders.forEach(el => {
       if(el.id === item.id)
         isInArray = true
     })
-    if(!isInArray) // Якщо елемента немає у замовленні
-      this.setState({orders: [...this.state.orders, item] }) // Додавання елемента до замовлення
+    if(!isInArray)
+      this.setState({orders: [...this.state.orders, item] })
   }
 }
 
