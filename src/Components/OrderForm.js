@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Импортируем библиотеку Axios
+import axios from 'axios'; // Імпортуємо бібліотеку Axios для взаємодії з сервером
 
 export default function OrderForm({ onSubmit }) {
     const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ export default function OrderForm({ onSubmit }) {
         paymentMethod: ''
     });
 
+    // Функція, яка викликається при зміні будь-якого поля форми
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -18,18 +19,19 @@ export default function OrderForm({ onSubmit }) {
         });
     };
 
+    // Функція, яка викликається при надсиланні форми
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Form data submitted:', formData); // Выводим данные формы в консоль перед отправкой
+        console.log('Form data submitted:', formData); // Виводимо дані форми в консоль перед надсиланням
         if (!onSubmit) {
-            console.error('Error: onSubmit function is not provided.'); // Проверяем, что функция onSubmit предоставлена
+            console.error('Error: onSubmit function is not provided.'); // Перевіряємо, чи передана функція onSubmit
             return;
         }
         try {
-            // Отправляем данные формы на сервер
+            // Надсилаємо дані форми на сервер
             const response = await axios.post('http://localhost:5000/submit-form', formData);
-            console.log(response.data); // Выводим ответ сервера в консоль
-            // Вызываем onSubmit с полученным ответом
+            console.log(response.data); // Виводимо відповідь сервера в консоль
+            // Викликаємо onSubmit з отриманою відповіддю
             onSubmit(response.data);
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -50,7 +52,7 @@ export default function OrderForm({ onSubmit }) {
                 />
             </div>
             <div>
-                <label htmlFor="email">Електронна пошта:</label> {/* Додано поле для вводу електронної пошти */}
+                <label htmlFor="email">Електронна пошта:</label> {/* Поле для вводу електронної пошти */}
                 <input
                     type="email"
                     id="email"
@@ -58,7 +60,7 @@ export default function OrderForm({ onSubmit }) {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                />
+                /> 
             </div>
             <div>
                 <label htmlFor="address">Адреса доставки:</label>
@@ -83,7 +85,6 @@ export default function OrderForm({ onSubmit }) {
                     <option value="">Оберіть спосіб доставки</option>
                     <option value="courier">Кур'єрська доставка</option>
                     <option value="pickup">Самовивіз</option>
-                    {/* Додайте інші варіанти доставки за потреби */}
                 </select>
             </div>
             <div>
@@ -98,7 +99,6 @@ export default function OrderForm({ onSubmit }) {
                     <option value="">Оберіть спосіб оплати</option>
                     <option value="online">Онлайн-оплата</option>
                     <option value="cash">Оплата при отриманні</option>
-                    {/* Додайте інші варіанти оплати за потреби */}
                 </select>
             </div>
             <button type="submit">Підтвердити замовлення</button>

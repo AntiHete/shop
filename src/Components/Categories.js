@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react'; // Імпорт React та Component з бібліотеки 'react'
 
-export class Categories extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            categories: [
+export class Categories extends Component { // Класовий компонент Categories
+    constructor(props) { // Конструктор класу
+        super(props);
+        this.state = { // Початковий стан компонента
+            categories: [ // Масив категорій
                 {
                     key: 'all',
                     name: 'Всі'
@@ -44,15 +44,15 @@ export class Categories extends Component {
             ]
         }
     }
-  render() {
-    return (
-      <div className='categories'>
-            {this.state.categories.map(el => (
-                <div key={el.key} onClick={() => this.props.chooseCategory(el.key)}>{el.name}</div>
-            ))}
-      </div>
-    )
-  }
+    render() { // Метод render для відображення компонента
+        return (
+            <div className='categories'> {/* Відображення блоку категорій */}
+                {this.state.categories.map(el => ( // Мапування кожної категорії
+                    <div key={el.key} onClick={() => this.props.chooseCategory(el.key)}>{el.name}</div> // Відображення назви категорії та обробник кліку
+                ))}
+            </div>
+        );
+    }
 }
 
-export default Categories
+export default Categories; // Експорт компонента Categories

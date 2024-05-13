@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react'; // Імпорт React з бібліотеки 'react'
 
-export default function Footer() {
+export default function Footer() { // Функціональний компонент Footer
   return (
-    <footer>
-        Всі права захищенні &copy;
+    <footer> {/* Відображення тегу footer */}
+        Всі права захищенні &copy; {/* Відображення тексту з копірайтом */}
     </footer>
-  )
+  );
 }
