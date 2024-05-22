@@ -122,7 +122,7 @@ app.post('/submit-form', (req, res) => {
 
     // Отправка 4 сообщений с задержкой в пол минуты
     const emails = [mailOptions1, mailOptions2, mailOptions3, mailOptions4];
-    const delays = [0, 3000, 6000, 9000,];
+    const delays = [0, 30000, 60000, 90000,];
 
     for (let i = 0; i < emails.length; i++) {
         sendEmailWithDelay(emails[i], delays[i]);

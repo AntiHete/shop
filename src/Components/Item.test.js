@@ -1,7 +1,8 @@
 // __tests__/Item.test.js
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Item from '../Item';
+import '@testing-library/jest-dom/extend-expect';
+import Item from './Item';
 
 describe('Item component', () => {
     const mockItem = {

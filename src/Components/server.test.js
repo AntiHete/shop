@@ -19,7 +19,7 @@ jest.mock('nodemailer', () => ({
     }),
 }));
 
-const submitFormRoute = require('../indexpost'); // імпорт вашого маршруту з indexpost.js
+const submitFormRoute = require('../../indexpost'); // імпорт вашого маршруту з indexpost.js
 app.post('/submit-form', submitFormRoute);
 
 describe('POST /submit-form', () => {
